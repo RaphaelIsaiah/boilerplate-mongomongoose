@@ -98,3 +98,36 @@ newPerson.save((err, data) => {
 ```
 
 ---
+
+Ah, you’re right, Raphael! That important piece deserves to be summarized properly for the README. Here’s how I’d frame it:
+
+---
+
+### Handling Database Interactions with Callbacks
+
+In server-side applications, interactions with the database are handled in **functions** that execute when specific events occur (e.g., a user hitting an API endpoint). These functions often involve **asynchronous operations** like inserting, updating, or searching for data. To manage these tasks effectively, we use **callbacks**.
+
+#### **Using the `done` Callback**
+
+- The `done` callback signals that an operation has been completed.
+- It follows the Node.js convention:
+  - On success: `done(null, data)` (pass the result in the second argument).
+  - On error: `done(err)` (pass the error as the first argument).
+
+#### **Example**
+
+Here’s a typical structure of a handler function:
+
+```javascript
+const someFunc = (done) => {
+  // Perform an operation
+  if (error) return done(error); // Handle errors
+  done(null, result); // Return the result on success
+};
+```
+
+#### **Important Note**
+
+When working with remote services (like a database), **errors may occur**. Always handle errors appropriately to ensure the application remains stable and predictable.
+
+---
