@@ -464,3 +464,13 @@ Person.findOneAndUpdate(
 ```
 
 ---
+
+### **Delete One Document Using `findByIdAndRemove`**
+
+To delete a document by its `_id`, use `Model.findByIdAndRemove()`:
+
+```javascript
+Model.findByIdAndRemove(id, callback);
+```
+
+---
