@@ -396,3 +396,50 @@ It takes the same arguments:
 
 `Model.findById()` is a Mongoose method specifically for searching documents using their unique MongoDB `_id` field.
 It works like `Model.findOne()`, but it automatically matches the `_id` field, so there’s no need to specify `{ _id: personId }` in the query.
+
+---
+
+### **Perform Classic Updates by Running Find, Edit, then Save - The Old Way**
+
+---
+
+- Before modern Mongoose methods existed, the typical way to edit a document involved:
+
+  - **Finding** the document using a method like `Model.findById()`.
+  - **Editing** the document directly by updating its fields.
+  - **Saving** the document back to the database using `.save()`.
+
+- This approach is often still used when you need the updated document (e.g., to send it back in an API response).
+
+#### **Introduction to `Model.update()`**
+
+- Mongoose introduced the `Model.update()` method for performing bulk updates across many documents that match certain criteria.
+- **Advantages**:
+  - You can update multiple documents in one call.
+  - It’s faster for large-scale updates since it directly interacts with the MongoDB driver.
+
+#### **Limitations of `Model.update()`**
+
+- **Doesn’t return the updated document**:
+  - After using `Model.update()`, you only get a "status message" indicating the success or failure of the update.
+  - If you need the updated document, you’ll need to fetch it again with another query.
+- **Model validations are bypassed**:
+  - Mongoose validations (defined in your schema) are not applied because `Model.update()` directly calls the MongoDB driver.
+  - This can lead to unintended issues if you rely on schema validations to enforce data integrity.
+
+---
+
+#### **Why Use "Find, Edit, then Save" Instead?**
+
+Although `Model.update()` is faster for bulk updates, the "find, edit, then save" approach has distinct advantages:
+
+- It lets you retrieve and work with the updated document immediately.
+- It ensures that schema validations (like type checking or required fields) are applied.
+- It's simpler and more intuitive for smaller-scale updates involving one document.
+
+---
+
+##### **Summary**
+
+- `Model.update()` is useful for bulk updates and direct interactions with the MongoDB driver but doesn’t provide the updated document or apply schema validations.
+- "Find, edit, then save" is preferred when you need the updated document and want to ensure schema validations are enforced.
