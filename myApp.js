@@ -103,8 +103,6 @@ const findAndUpdate = (personName, done) => {
       done(null, updatedPerson); // Pass the updated document
     }
   );
-
-  done(null /*, data*/);
 };
 
 const removeById = (personId, done) => {
