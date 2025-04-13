@@ -502,3 +502,96 @@ The result passed to `done(null, removedPeople)` is a JSON object that looks som
 Returns a JSON object with details about the operation, including the number of documents deleted.
 
 ---
+
+You've reached the final challenge, Raphael! Let's break down these notes to ensure everything is clear, and I'll provide a concise summary for your README file afterward.
+
+---
+
+### **Explanation of Notes**
+
+#### **Query Execution in Mongoose**
+
+- When using `Model.find()` or similar methods (like `findOne()` or `findById()`), Mongoose doesn’t execute the query immediately unless a callback is provided.
+- If no callback is passed, the query is **stored as a variable** for later execution. This allows you to build up the query using **chaining syntax** (e.g., `.find().sort().limit().select()`).
+
+#### **2. Chaining Query Helpers**
+
+These are commonly used query helpers in Mongoose:
+
+1. **`.find()`**:
+   - Specifies the search criteria (e.g., `{ favoriteFoods: foodToSearch }`).
+   - Returns all matching documents.
+2. **`.sort()`**:
+
+   - Sorts the results based on a specific field and order.
+   - Example: `.sort({ name: 1 })` sorts by name in ascending order.
+   - Example: `.sort({ name: -1 })` sorts by name in descending order.
+
+3. **`.limit()`**:
+
+   - Limits the number of results returned.
+   - Example: `.limit(2)` returns at most 2 documents.
+
+4. **`.select()`**:
+
+   - Specifies which fields to include/exclude in the results.
+   - Example: `.select("-age")` excludes the `age` field.
+
+5. **`.exec()`**:
+   - Executes the query and triggers the actual database search.
+   - Requires a callback function (`done(err, data)`).
+
+#### **Code Implementation**
+
+Here’s the final implementation of `queryChain`:
+
+```javascript
+const queryChain = (done) => {
+  const foodToSearch = "burrito";
+
+  Person.find({ favoriteFoods: foodToSearch }) // Step 1: Find people who like "burrito"
+    .sort({ name: 1 }) // Step 2: Sort by name in ascending order
+    .limit(2) // Step 3: Limit to 2 documents
+    .select("-age") // Step 4: Exclude the age field
+    .exec((err, data) => {
+      // Step 5: Execute the query
+      if (err) return done(err); // Handle errors
+      done(null, data); // Pass the results to done
+    });
+};
+```
+
+---
+
+##### **Explanation of Implementation**
+
+1. **Search Query**:
+
+   - The query `{ favoriteFoods: foodToSearch }` finds people whose `favoriteFoods` array includes `"burrito"`.
+
+2. **Sorting**:
+
+   - `.sort({ name: 1 })` orders results by `name` in ascending alphabetical order.
+
+3. **Limiting Results**:
+
+   - `.limit(2)` ensures only 2 documents are returned, even if there are more matches.
+
+4. **Field Selection**:
+
+   - `.select("-age")` excludes the `age` field from the documents.
+
+5. **Execution**:
+   - `.exec()` triggers the query, and the results are passed to the callback (`done(err, data)`).
+
+##### **Query Helpers**
+
+1. `.find(criteria)` - Finds documents matching the specified criteria.
+2. `.sort(order)` - Sorts results by a field (`{ field: 1 }` for ascending, `{ field: -1 }` for descending).
+3. `.limit(number)` - Limits the number of results returned.
+4. `.select(fields)` - Specifies fields to include/exclude (e.g., `"-field"` to exclude).
+5. `.exec(callback)` - Executes the query and passes results to the callback.
+
+###### Query Result
+
+Returns up to 2 documents where favoriteFoods includes "burrito", sorted by name (ascending) and excluding age.
