@@ -50,7 +50,6 @@ const findPeopleByName = (personName, done) => {
     if (err) return done(err); // Handle error
     done(null, data); // Handle success by passing the results
   });
-  done(null /*, data*/);
 };
 
 const findOneByFood = (food, done) => {
