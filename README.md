@@ -380,3 +380,12 @@ Person.find({ age: { $gte: 20 } })
 ```
 
 ---
+
+### **Understand Model.findOne()**
+
+Unlike `Model.find()`, which returns an array of matches, `Model.findOne()` will return only one matching document (or `null` if no match is found). It is especially useful when searching by properties that you have declared as **unique**.
+
+It takes the same arguments:
+
+- **Query**: A JSON object specifying the search criteria.
+- **Callback**: A function to handle the result (following the Node.js error-first convention).
