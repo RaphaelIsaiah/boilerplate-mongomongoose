@@ -172,3 +172,47 @@ When working with remote services (like a database), **errors may occur**. Alway
    - It allows controlled execution of tasks, ensuring that you handle both success and error scenarios effectively.
 
 ---
+
+### Create Many Records with `Model.create()`
+
+To insert multiple documents into a MongoDB collection using Mongoose, follow these steps:
+
+#### **1. Use `Model.create()`**
+
+Pass an array of objects to `Model.create()`:
+
+```javascript
+Person.create(arrayOfPeople, (err, data) => {
+  if (err) return done(err); // Handle error
+  done(null, data); // Handle success
+});
+```
+
+#### **Example Implementation**
+
+```javascript
+const createManyPeople = (arrayOfPeople, done) => {
+  Person.create(arrayOfPeople, (err, data) => {
+    if (err) return done(err);
+    done(null, data);
+  });
+};
+```
+
+#### **Example Input**
+
+Array of people:
+
+```javascript
+[
+  { name: "John", age: 30, favoriteFoods: ["Pizza"] },
+  { name: "Mary", age: 25, favoriteFoods: ["Pasta", "Salad"] },
+  { name: "Mark", age: 35, favoriteFoods: ["Steak"] },
+];
+```
+
+#### **Output**
+
+Returns the array of saved documents.
+
+---

@@ -18,6 +18,8 @@ const personSchema = new mongoose.Schema({
 // Create the Person model
 let Person = mongoose.model("Person", personSchema);
 
+// Create and save a record of a model
+// Creates and saves a new Person document with predefined values to the database.
 const createAndSavePerson = (done) => {
   // Create a new Person instance
   const person = new Person({
@@ -34,7 +36,11 @@ const createAndSavePerson = (done) => {
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  // Use Model.create() to insert multiple documents
+  Person.create(arrayOfPeople, (err, data) => {
+    if (err) return done(err); // Pass the error to the done callback
+    done(null, data); // Pass the array of saved documents to the done call back
+  });
 };
 
 const findPeopleByName = (personName, done) => {
