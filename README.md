@@ -389,3 +389,10 @@ It takes the same arguments:
 
 - **Query**: A JSON object specifying the search criteria.
 - **Callback**: A function to handle the result (following the Node.js error-first convention).
+
+---
+
+### **Understand Model.findById()**
+
+`Model.findById()` is a Mongoose method specifically for searching documents using their unique MongoDB `_id` field.
+It works like `Model.findOne()`, but it automatically matches the `_id` field, so there’s no need to specify `{ _id: personId }` in the query.

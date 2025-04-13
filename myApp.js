@@ -61,7 +61,11 @@ const findOneByFood = (food, done) => {
 };
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  // Use Model.findById() to search the database
+  Person.findById(personId, (err, data) => {
+    if (err) return done(err);
+    done(null, data);
+  });
 };
 
 const findEditThenSave = (personId, done) => {
