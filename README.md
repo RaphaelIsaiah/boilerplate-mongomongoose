@@ -465,12 +465,40 @@ Person.findOneAndUpdate(
 
 ---
 
-### **Delete One Document Using `findByIdAndRemove`**
+### **Delete One Document Using `findByIdAndRemove` Or `findOneAndRemove().`**
 
 To delete a document by its `_id`, use `Model.findByIdAndRemove()`:
 
 ```javascript
 Model.findByIdAndRemove(id, callback);
 ```
+
+---
+
+### **Delete Many Documents with `model.remove()`**
+
+`Model.remove()` is useful to delete all the documents matching given criteria.
+
+```js
+Model.remove(query, callback);
+```
+
+#### Additional Note
+
+The result passed to `done(null, removedPeople)` is a JSON object that looks something like this:
+
+```json
+{
+  "acknowledged": true,
+  "deletedCount": 3
+}
+```
+
+- `acknowledged`: Indicates whether the operation was successful.
+- `deletedCount`: The number of documents deleted.
+
+#### Result
+
+Returns a JSON object with details about the operation, including the number of documents deleted.
 
 ---
