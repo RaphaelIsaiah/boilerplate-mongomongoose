@@ -35,6 +35,7 @@ const createAndSavePerson = (done) => {
   });
 };
 
+// Create many records using the person model
 const createManyPeople = (arrayOfPeople, done) => {
   // Use Model.create() to insert multiple documents
   Person.create(arrayOfPeople, (err, data) => {
@@ -44,6 +45,11 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 
 const findPeopleByName = (personName, done) => {
+  // Use Model.find() to search the database
+  Person.find({ name: personName }, (err, data) => {
+    if (err) return done(err); // Handle error
+    done(null, data); // Handle success by passing the results
+  });
   done(null /*, data*/);
 };
 
