@@ -36,3 +36,65 @@ mongoose.connect(process.env.MONGO_URI, {
 ```
 
 ---
+
+### **Understanding Schema and Models**
+
+1. **Schema**:
+
+   - A schema defines the structure of documents in a MongoDB collection.
+   - It specifies the fields, data types, and constraints for each document.
+   - Schemas are the foundation for creating **models**.
+
+2. **Model**:
+
+   - A model is created from a schema and acts as a blueprint for MongoDB documents.
+   - Models enable you to perform CRUD (Create, Read, Update, Delete) operations on the corresponding collection.
+
+3. **Interaction with Databases**:
+   - In server environments, database interactions (like inserting or querying) typically happen in **handler functions**.
+   - These functions often use callbacks, such as `done(null, data)` for success or `done(err)` for errors, following Node.js conventions.
+
+---
+
+### Create a Mongoose Model
+
+To interact with a MongoDB collection, follow these steps:
+
+#### **1. Define a Schema**
+
+Use Mongoose to define the structure of your collection:
+
+```javascript
+const personSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  age: Number,
+  favoriteFoods: [String],
+});
+```
+
+#### **2. Create a Model**
+
+Create a model from the schema and assign it to a variable:
+
+```javascript
+const Person = mongoose.model("Person", personSchema);
+```
+
+#### **3. Example of Using the Model**
+
+Use the model to create a new document:
+
+```javascript
+const newPerson = new Person({
+  name: "Timmy",
+  age: 30,
+  favoriteFoods: ["Pizza", "Ice Cream"],
+});
+
+newPerson.save((err, data) => {
+  if (err) console.error(err);
+  console.log(data);
+});
+```
+
+---

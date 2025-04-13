@@ -1,12 +1,22 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const mongoose = require("mongoose"); // Require mongoose
 
 // Connect to the MongoDB database using mongoose
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+// Define the person schema
+const personSchema = new mongoose.Schema({
+  name: { type: String, required: true }, // Required name field of type String
+  age: Number, // Age field of type Number
+  favoriteFoods: [String], // Array of Strings for favoriteFoods
+});
 
-let Person;
+// Create the Person model
+let Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
