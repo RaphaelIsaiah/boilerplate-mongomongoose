@@ -443,3 +443,24 @@ Although `Model.update()` is faster for bulk updates, the "find, edit, then save
 
 - `Model.update()` is useful for bulk updates and direct interactions with the MongoDB driver but doesn’t provide the updated document or apply schema validations.
 - "Find, edit, then save" is preferred when you need the updated document and want to ensure schema validations are enforced.
+
+---
+
+### **Understand `findOneAndUpdate()`**
+
+This method finds **one document** that matches the query and updates it.
+
+By default, it returns the **original (unmodified) document**. However, you can get the updated document by adding the option `{ new: true }`.
+
+#### **Use `Model.findOneAndUpdate()` to locate and update a document:**
+
+```js
+Person.findOneAndUpdate(
+  { name: personName }, // Search query
+  { age: ageToSet }, // Update object
+  { new: true }, // Return the updated document
+  callback // Handle result or error
+);
+```
+
+---
