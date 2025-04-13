@@ -131,3 +131,44 @@ const someFunc = (done) => {
 When working with remote services (like a database), **errors may occur**. Always handle errors appropriately to ensure the application remains stable and predictable.
 
 ---
+
+### **What is the `done` Function?**
+
+1. **Purpose**:
+
+   - The `done` function tells the application (or test runner) that your operation has completed, allowing it to move to the next step.
+   - It's essential for asynchronous operations, like saving data to a database, because such operations take time and won't finish immediately.
+
+2. **Usage**:
+
+   - The `done` function follows the **Node.js error-first callback convention**, which means:
+     - If there's an error, you call `done(err)` where `err` is the error object.
+     - If the operation is successful, you call `done(null, data)` where `data` is the result of the operation.
+
+3. **Example Workflow**:
+   Here's a simplified representation:
+
+   ```javascript
+   const someAsyncFunction = (done) => {
+     performSomeAsyncOperation((err, result) => {
+       if (err) return done(err); // Pass the error to done if something goes wrong
+       done(null, result); // Pass the result to done on success
+     });
+   };
+   ```
+
+   - This ensures the test framework knows whether the task was completed successfully or if an error occurred.
+
+---
+
+### **Why is `done` Important?**
+
+1. **For Tests**:
+
+   - It ensures the testing framework knows when your function completes, especially when working with asynchronous code.
+   - Without it, the test may timeout or behave incorrectly.
+
+2. **For Async Tasks**:
+   - It allows controlled execution of tasks, ensuring that you handle both success and error scenarios effectively.
+
+---
