@@ -129,10 +129,8 @@ const queryChain = (done) => {
     .limit(2) // Step 3: Limit to 2 documents
     .select("-age") // Step 4: Exclude the age field
     .exec(
-      (
-        err,
-        data // Step 5: Execute the query
-      ) => {
+      // Step 5: Execute the query
+      (err, data) => {
         if (err) return done(err); // Handle errors
         done(null, data); // Pass the results to done
       }
